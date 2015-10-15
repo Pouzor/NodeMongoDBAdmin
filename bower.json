@@ -1,5 +1,5 @@
 {
-  "name": "mean",
+  "name": "NodeMongoDBAdmin",
   "dependencies": {
     "jquery": "latest",
     "angular": "latest",

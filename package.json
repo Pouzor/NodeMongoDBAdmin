@@ -1,10 +1,9 @@
 {
-  "name": "mean",
-  "description": "MEAN.io: A fullstack JavaScript framework powered by MongoDB, ExpressJS, AngularJS, NodeJS.",
-  "version": "0.5.5",
+  "name": "NodeMongoDBAdmin",
+  "description": "NodeMongoDBAdmin is a tool written in Node.js with Mean.io, intended to handle the administration of MongoDB over the Web.",
+  "version": "0.0.1",
   "private": false,
-  "author": "Linnovate <mean@linnovate.net>",
-  "contributors": "https://github.com/linnovate/mean/graphs/contributors",
+  "author": "Pouzor <remy.jardinet@gmail.com>",
   "mean": "0.5.5",
   "repository": {
     "type": "git",
