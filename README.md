@@ -1,6 +1,8 @@
 
 #  NodeMongoDBAdmin
 
+NodeMongoDBAdmin is a tool written in Node.js with Mean.io, intended to handle the administration of MongoDB over the Web.
+
 ## Prerequisite Technologies
 ### Linux
 * *Node.js* - <a href="http://nodejs.org/download/">Download</a> and Install Node.js, nodeschool has free <a href=" http://nodeschool.io/#workshoppers">node tutorials</a> to get you started.
