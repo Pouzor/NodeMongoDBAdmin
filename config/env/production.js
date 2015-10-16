@@ -28,7 +28,7 @@ module.exports = {
   },
   hostname: 'http://localhost:3000',
   app: {
-    name: 'NodeMongoDBAdmin'
+    name: 'MEAN - A Modern Stack - Production'
   },
   logging: {
     format: 'combined'

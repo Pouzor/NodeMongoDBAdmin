@@ -13,7 +13,7 @@ module.exports = {
     format: 'common'
   },
   app: {
-    name: 'NodeMongoDBAdmin'
+    name: 'MEAN - A Modern Stack - Test'
   },
   strategies: {
     local: {
