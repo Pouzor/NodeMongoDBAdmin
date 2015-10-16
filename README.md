@@ -34,7 +34,7 @@ $ sudo apt-get install nodejs
 ### Install
 
 ```bash
-$ cd <myApp> && npm install
+$ cd NodeMongoDBAdmin && npm install
 ```
 
 
