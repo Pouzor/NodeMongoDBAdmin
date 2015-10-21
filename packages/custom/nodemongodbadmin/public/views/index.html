@@ -1,4 +1,15 @@
 <div class="" data-ng-controller="NodemongodbadminController">
-
+    <div class="row">
+        <div class="col-md-3">
+            <table class="table table-condensed table-hover table-bordered">
+                <tr>
+                    <th><h3>Databases</h3></th>
+                </tr>
+                <tr data-ng-repeat="database in databases">
+                    <td><h4>{{database.name}}</h4></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
 

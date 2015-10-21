@@ -1,5 +1,5 @@
 
-#  NodeMongoDBAdmin
+#  [WIP] NodeMongoDBAdmin
 
 NodeMongoDBAdmin is a tool written in Node.js with Mean.io, intended to handle the administration of MongoDB over the Web.
 
@@ -37,4 +37,14 @@ $ sudo apt-get install nodejs
 $ cd NodeMongoDBAdmin && npm install
 ```
 
+### Configuration
 
+You need to configure Mongo Access (with super user) in config/env/all.js
+
+```
+  db: 'mongodb://' + (process.env.DB_PORT_27017_TCP_ADDR || 'localhost') + '/nodeMongoAdmin',
+  mongoUser: "user",
+  mongoPass: "password",
+  mongoPort: 27017,
+  mongoShortUrl: 'localhost'
+```

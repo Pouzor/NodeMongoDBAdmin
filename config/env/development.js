@@ -1,7 +1,11 @@
 'use strict';
 
 module.exports = {
-  db: 'mongodb://' + (process.env.DB_PORT_27017_TCP_ADDR || 'localhost') + '/mean-dev',
+  db: 'mongodb://' + (process.env.DB_PORT_27017_TCP_ADDR || 'localhost') + '/nodeMongoAdmin',
+  mongoUser: null,
+  mongoPass: null,
+  mongoPort: 27017,
+  mongoShortUrl: 'localhost',
   debug: true,
   logging: {
     format: 'tiny'
