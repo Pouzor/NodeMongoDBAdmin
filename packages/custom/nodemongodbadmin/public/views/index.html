@@ -1,19 +1,26 @@
-<div class="" data-ng-controller="NodemongodbadminController">
+<div class="" data-ng-controller="DatabaseCtrl">
     <div class="row">
         <div class="col-md-3">
-            <table class="table table-condensed table-hover table-bordered">
+            <table class="table table-condensed  ">
                 <tr style="">
                     <th><h3 >Databases</h3></th>
                 </tr>
                 <tr data-ng-repeat="database in databases">
-                    <td>
+                    <td style="padding-left: 20px">
                         <h4>
                             <a href="/databases/{{database.name}}">{{database.name}}</a>
                         </h4>
+
+
                     </td>
                 </tr>
             </table>
         </div>
+        <div class="col-md-9">
+        </div>
     </div>
 </div>
+
+
+
 

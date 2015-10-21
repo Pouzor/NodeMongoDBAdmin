@@ -3,7 +3,7 @@
         <div class="col-md-3">
             <table class="table table-condensed  ">
                 <tr style="">
-                    <th><h3 >Databases</h3></th>
+                    <th><h3>Databases</h3></th>
                 </tr>
                 <tr data-ng-repeat="database in databases">
                     <td style="padding-left: 20px">
@@ -11,10 +11,11 @@
                             <a href="/databases/{{database.name}}">{{database.name}}</a>
                         </h4>
 
-                        <table style="padding-top:10px" class="table-condensed table-hover" data-ng-if="databaseSelected == database.name">
+                        <table style="padding-top:10px" class="table-condensed table-hover"
+                               data-ng-if="databaseSelected == database.name">
 
                             <tr data-ng-repeat="collection in collections.collections">
-                                <td style="padding-left: 20px">
+                                <td style="padding-left: 20px" data-ng-click="selectCollection(collection.name)">
                                     {{collection.name}}
                                 </td>
                             </tr>
@@ -23,7 +24,72 @@
                 </tr>
             </table>
         </div>
+
         <div class="col-md-9">
+            Collection : {{collectionSelected}}<br/>
+            Database : {{databaseSelected}}<br/><br/>
+
+            <div class="alert alert-danger" role="alert" ng-if="error != false">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only"></span>
+                Error : Bad Json Request - Formats available are : <br/>
+                {"name":"Jean"} <br/>
+                {"createdAt" : { "$gt" : "Date(2015-01-01T00:00:00)" }}
+            </div>
+
+
+            <form ng-submit="submitRequest()" ng-if="collectionSelected != 'none'">
+                <span class="glyphicon glyphicon-info-sign" ng-click="$parent.info = !$parent.info"></span>
+                <br/><br/>
+
+                <div ng-show="$parent.info" class="ng-hide alert alert-info">
+                    <strong>Requesting Object :</strong><br/><br/>
+                    &nbsp;&nbsp;- ObjectId : {"_id" : "ObjectId(5627958f997d7943df7322f0)"}<br/>
+                    &nbsp;&nbsp;- MongoDate : {"createdAt" : "Date(2015-01-01T00:00:00)"}<br/>
+                    &nbsp;&nbsp;- $gt(e)/lt(e) : {"createdAt" : { "$gt" : "Date(2015-01-01T00:00:00)" }}<br/>
+                </div>
+
+                <div class="input-group">
+                <span class="input-group-addon">{{databaseSelected}}.{{collectionSelected}}
+
+                </span>
+                    <select class="selectpicker form-control" ng-model="$parent.type" style="padding:1px">
+                        <option value="find">find()</option>
+                        <option value="count">count()</option>
+                        <option value="aggregate">aggregate()</option>
+                    </select>
+
+                </div>
+                <br/> <br/>
+                <textarea class="form-control" style="min-height: 120px" placeholder="Request"
+                          ng-model="$parent.request"></textarea>
+
+                <br/><br/>
+
+                <div class="input-group col-md-2" ng-if="type == 'find'">
+                    <span class="input-group-addon">Limit</span>
+                    <input type="text" class="form-control" placeholder="10" ng-model="$parent.$parent.limit"/>
+
+                </div>
+                <br/><br/>
+
+                <div class="input-group col-md-6" ng-if="type == 'find'">
+                    <span class="input-group-addon">Sort Key</span>
+                    <input type="text" class="form-control" ng-model="$parent.$parent.sort_key"/>
+                    <span class="input-group-addon">Sort Value</span>
+                    <select class="selectpicker form-control" ng-model="$parent.$parent.sort_value" style="padding:1px; width:50px">
+                        <option value="-1">-1</option>
+                        <option value="1">1</option>
+                    </select>
+                </div>
+                <br/><br/>
+                <input type="submit" value="Submit" class="btn btn-primary {{ $parent.sending }}"/>
+
+                <br/><br/>
+                <pre class="result" pretty-json="result" ng-if="result != null"/>
+
+            </form>
+
         </div>
     </div>
 </div>
