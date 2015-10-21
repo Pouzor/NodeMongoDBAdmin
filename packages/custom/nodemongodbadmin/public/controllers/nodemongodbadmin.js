@@ -1,7 +1,7 @@
 'use strict';
 
 /* jshint -W098 */
-angular.module('mean.nodemongodbadmin').controller('NodemongodbadminController', ['$scope', 'Global', 'Database',
+angular.module('mean.nodemongodbadmin').controller('NodemongodbadminController', ['$scope', 'Database',
     function ($scope, Database) {
 
         Database.query(function (databases) {
