@@ -2,11 +2,15 @@
     <div class="row">
         <div class="col-md-3">
             <table class="table table-condensed table-hover table-bordered">
-                <tr>
-                    <th><h3>Databases</h3></th>
+                <tr style="">
+                    <th><h3 >Databases</h3></th>
                 </tr>
                 <tr data-ng-repeat="database in databases">
-                    <td><h4>{{database.name}}</h4></td>
+                    <td>
+                        <h4>
+                            <a href="/databases/{{database.name}}">{{database.name}}</a>
+                        </h4>
+                    </td>
                 </tr>
             </table>
         </div>

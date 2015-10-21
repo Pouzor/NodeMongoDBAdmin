@@ -1,0 +1,33 @@
+<div class="" data-ng-controller="DatabaseCtrl">
+    <div class="row">
+        <div class="col-md-3">
+            <table class="table table-condensed  ">
+                <tr style="">
+                    <th><h3 >Databases</h3></th>
+                </tr>
+                <tr data-ng-repeat="database in databases">
+                    <td style="padding-left: 20px">
+                        <h4>
+                            <a href="/databases/{{database.name}}">{{database.name}}</a>
+                        </h4>
+
+                        <table style="padding-top:10px" class="table-condensed table-hover" data-ng-if="databaseSelected == database.name">
+
+                            <tr data-ng-repeat="collection in collections.collections">
+                                <td style="padding-left: 20px">
+                                    {{collection.name}}
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-9">
+        </div>
+    </div>
+</div>
+
+
+
+

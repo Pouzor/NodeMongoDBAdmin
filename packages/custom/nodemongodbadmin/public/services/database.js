@@ -2,11 +2,10 @@
 
 angular.module('mean.nodemongodbadmin').factory('Database', ['$resource',
     function ($resource) {
-        return $resource('api/databases/:databaseId', {
+        return $resource('api/databases/:id', {
             eventId: '@_id'
         }, {
             update: {method: 'PUT'}
-
         });
     }
 

@@ -7,6 +7,7 @@ var meanio = require('meanio');
 var config = meanio.loadConfig();
 var Server = require('mongodb').Server;
 var Db = require('mongodb').Db;
+var MongoClient = require('mongodb').MongoClient;
 
 exports.all = function (req, res) {
 
@@ -37,4 +38,18 @@ exports.all = function (req, res) {
     });
 
    // res.json([{"toto" : config.mongoPort}]);
+};
+
+
+exports.getCollections = function (req, res) {
+
+    MongoClient.connect(config.db + '/' + req.params.id, function(err, db) {
+        if(err) throw err;
+
+        db.listCollections().toArray(function(err, collections) {
+            console.log(collections);
+
+            res.json({"collections": collections});
+        });
+    });
 };
