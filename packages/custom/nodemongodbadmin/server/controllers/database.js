@@ -10,6 +10,34 @@ var Server = require('mongodb').Server;
 var Db = require('mongodb').Db;
 var MongoClient = require('mongodb').MongoClient;
 
+
+function getRequest(request) {
+    request = JSON.stringify(request);
+    request = request.replace(/MONGO_OPERATOR/g, "$");// Cause $ get disepear when stringify
+
+    var dateTimeReviver = function (key, value) {
+        var a;
+        if (typeof value === 'string') {
+            a = /Date\(([:a-zA-Z0-9_-]*)\)/.exec(value);
+            if (a) {
+                console.log(a[1]);
+
+                return new Date(a[1]);
+            }
+
+            a = /ObjectId\(([a-f0-9]*)\)/.exec(value);
+            if (a) {
+                return new ObjectID(a[1]);
+            }
+        }
+
+        return value;
+    };
+
+    return JSON.parse(request, dateTimeReviver);
+}
+
+
 exports.all = function (req, res) {
 
     MongoClient.connect(config.db + '/admin', function (err, db) {
@@ -51,30 +79,8 @@ exports.request = function (req, res) {
         MongoClient.connect(config.db + '/' + data.database, function (err, db) {
             db.authenticate(config.mongoUser, config.mongoPass, function (err, result) {
 
-                var request = data.request;
-                request = JSON.stringify(request);
-                request = request.replace(/MONGO_OPERATOR/g, "$");// Cause $ get disepear when stringify
-
-                var dateTimeReviver = function (key, value) {
-                    var a;
-                    if (typeof value === 'string') {
-                        a = /Date\(([:a-zA-Z0-9_-]*)\)/.exec(value);
-                        if (a) {
-                            console.log(a[1]);
-
-                            return new Date(a[1]);
-                        }
-
-                        a = /ObjectId\(([a-f0-9]*)\)/.exec(value);
-                        if (a) {
-                            return new ObjectID(a[1]);
-                        }
-                    }
-
-                    return value;
-                };
-
-                request = JSON.parse(request, dateTimeReviver);
+                var request = getRequest(data.request);
+                var update = getRequest(data.update);
 
                 // FIND REQUEST
                 if (data.type == 'find') {
@@ -83,13 +89,55 @@ exports.request = function (req, res) {
                     col.find(request).limit(data.limit).sort(data.sort).maxTimeMS(3000000).toArray(function (err, docs) {
 
                         if (err) {
-                            res.json([{"Error": err}]);
-                            console.log(err);
+                            res.json([{"Etape 3": err}]);
+                            console.log("Etape 3" + err);
 
                             return;
                         }
-                        console.log(docs);
+
                         res.json(docs);
+                        db.close();
+                    });
+
+                } else
+                // UPDATE REQUEST
+                if (data.type == 'update') {
+
+                    var col = db.collection(data.collection);
+
+
+                    console.log(update);
+
+                    col.update(request, update, function (err, docs) {
+                        if (err) {
+                            res.json([{"Error": err}]);
+                            console.log("Error" + err);
+
+                            return;
+                        }
+
+                        console.log(docs);
+                        res.json([{"status": "ok"}]);
+
+
+                        db.close();
+                    });
+
+                } else
+                // REMOVE REQUEST
+                if (data.type == 'remove') {
+
+                    var col = db.collection(data.collection);
+                    col.remove(request, function (err, docs) {
+
+                        if (err) {
+                            res.json([{"Etape 3": err}]);
+                            console.log("Etape 3" + err);
+
+                            return;
+                        }
+
+                        res.json([{"status": "ok"}]);
                         db.close();
                     });
 
@@ -99,8 +147,8 @@ exports.request = function (req, res) {
 
                     db.command({'count': data.collection, 'query': request}, function (err, count) {
                         if (err) {
-                            res.json([{"Error": err}]);
-                            console.log(err);
+                            res.json([{"Etape 4": err}]);
+                            console.log("Etape 4" + err);
                             return;
                         }
 
@@ -113,7 +161,8 @@ exports.request = function (req, res) {
                     db.collection(data.collection).aggregate(request, function (err, docs) {
 
                         if (err) {
-                            console.log(err);
+                            res.json([{"Etape 3": err}]);
+                            console.log("Etape 3" + err);
 
                             return;
                         }
@@ -122,11 +171,14 @@ exports.request = function (req, res) {
                         db.close();
                     });
 
+
                 }
 
             });
         });
+
     } catch (ex) {
         console.log(ex);
+        res.json([{"Error": ex}]);
     }
 };

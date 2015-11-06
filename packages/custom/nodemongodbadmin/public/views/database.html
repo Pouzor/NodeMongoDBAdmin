@@ -57,43 +57,63 @@
                         <option value="find">find()</option>
                         <option value="count">count()</option>
                         <option value="aggregate">aggregate()</option>
+                        <option value="update">update()</option>
+                        <option value="remove">remove()</option>
                     </select>
 
                 </div>
                 <br/> <br/>
+
+
                 <textarea class="form-control" style="min-height: 120px" placeholder="Request"
                           ng-model="$parent.request"></textarea>
+
 
                 <br/><br/>
 
                 <div class="input-group col-md-2" ng-if="type == 'find'">
+
                     <span class="input-group-addon">Limit</span>
                     <input type="text" class="form-control" placeholder="10" ng-model="$parent.$parent.limit"/>
 
                 </div>
-                <br/><br/>
+                <div ng-if="type == 'find'"><br/><br/></div>
+
 
                 <div class="input-group col-md-6" ng-if="type == 'find'">
+
                     <span class="input-group-addon">Sort Key</span>
                     <input type="text" class="form-control" ng-model="$parent.$parent.sort_key"/>
                     <span class="input-group-addon">Sort Value</span>
-                    <select class="selectpicker form-control" ng-model="$parent.$parent.sort_value" style="padding:1px; width:50px">
+                    <select class="selectpicker form-control" ng-model="$parent.$parent.sort_value"
+                            style="padding:1px; width:50px">
                         <option value="-1">-1</option>
                         <option value="1">1</option>
                     </select>
                 </div>
+
+                <div ng-if="type == 'update'">
+                    <h4>Update request</h4>
+                    <textarea class="form-control" style="min-height: 120px" placeholder="Update Request"
+                              ng-model="$parent.$parent.update"></textarea>
+                </div>
+
                 <br/><br/>
-                <input type="submit" value="Submit" class="btn btn-primary {{ $parent.sending }}"/>
+                <input ng-if="type == 'remove'" type="submit" value="Submit"
+                       class="btn btn-primary {{ $parent.sending }}"
+                       ng-confirm-click="Are you sure to execute this remove request :  {{ '\n\n' + $parent.request }}"/>
+
+                <input ng-if="type != 'remove'" type="submit" value="Submit"
+                       class="btn btn-primary {{ $parent.sending }}"/>
+
 
                 <br/><br/>
                 <pre class="result" pretty-json="result" ng-if="result != null"/>
-<span>{{result}}</span>
+                {{result}}
+
             </form>
+
 
         </div>
     </div>
 </div>
-
-
-
-

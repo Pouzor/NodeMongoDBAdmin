@@ -18,6 +18,7 @@ angular.module('mean.nodemongodbadmin').controller('DatabaseCtrl', ['$scope','$s
         $scope.databaseSelected = $stateParams.name;
         $scope.collections = Database.get({id: $scope.databaseSelected});
         $scope.request = '{}';
+        $scope.update = '{"$set" : {}}';
         $scope.type = "find";
         $scope.limit = 10;
         $scope.sort_key = "_id";
@@ -40,9 +41,11 @@ angular.module('mean.nodemongodbadmin').controller('DatabaseCtrl', ['$scope','$s
         $scope.submitRequest = function () {
 
             var request = $scope.request;
+            var update = $scope.update;
             $scope.result = null;
             $scope.sending = 'disabled';
             request = request.replace(/\$/g, "MONGO_OPERATOR");// Cause $ get disepear when stringify
+            update = update.replace(/\$/g, "MONGO_OPERATOR");// Cause $ get disepear when stringify
 
             try {
                 request = angular.fromJson(request);
@@ -57,6 +60,7 @@ angular.module('mean.nodemongodbadmin').controller('DatabaseCtrl', ['$scope','$s
                 database: $scope.databaseSelected,
                 collection: $scope.collectionSelected,
                 type: $scope.type,
+                update: update,
                 limit: parseInt($scope.limit),
                 sort: [[$scope.sort_key, $scope.sort_value]]
             };
