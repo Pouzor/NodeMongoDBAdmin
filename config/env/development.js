@@ -2,8 +2,8 @@
 
 module.exports = {
   db: 'mongodb://localhost:27017',
-  mongoUser: null,
-  mongoPass: null,
+  mongoUser: "",
+  mongoPass: "",
   mongoPort: 27017,
   mongoShortUrl: 'localhost',
   nodeMongoAdminCollection: 'nodeMongoAdmin',

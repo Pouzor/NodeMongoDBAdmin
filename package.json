@@ -33,7 +33,7 @@
     "jsonwebtoken": "latest",
     "lodash": "latest",
     "meanio": "latest",
-    "mongodb": "~1.4.14",
+    "mongodb": "~2.0.47",
     "mongoose": "latest",
     "morgan": "latest",
     "ms": "latest",

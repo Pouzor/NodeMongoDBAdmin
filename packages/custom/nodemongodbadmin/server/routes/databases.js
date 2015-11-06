@@ -9,6 +9,8 @@ module.exports = function (Nodemongodbadmin, app, auth) {
 
     app.get('/api/databases/:id', databases.getCollections);
 
+    app.post('/api/request', databases.request);
+
     //app.get('/api/nodemongodbadmin/example/auth', auth.requiresLogin, function(req, res, next) {
     //  res.send('Only authenticated users can access this');
     //});
