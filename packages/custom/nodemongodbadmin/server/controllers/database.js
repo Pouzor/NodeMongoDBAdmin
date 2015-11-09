@@ -89,8 +89,8 @@ exports.request = function (req, res) {
                     col.find(request).limit(data.limit).sort(data.sort).maxTimeMS(3000000).toArray(function (err, docs) {
 
                         if (err) {
-                            res.json([{"Etape 3": err}]);
-                            console.log("Etape 3" + err);
+                            res.json([{"Error at find": err}]);
+                            console.log(err);
 
                             return;
                         }
@@ -105,9 +105,6 @@ exports.request = function (req, res) {
 
                     var col = db.collection(data.collection);
 
-
-                    console.log(update);
-
                     col.update(request, update, function (err, docs) {
                         if (err) {
                             res.json([{"Error": err}]);
@@ -116,10 +113,7 @@ exports.request = function (req, res) {
                             return;
                         }
 
-                        console.log(docs);
                         res.json([{"status": "ok"}]);
-
-
                         db.close();
                     });
 
@@ -131,8 +125,8 @@ exports.request = function (req, res) {
                     col.remove(request, function (err, docs) {
 
                         if (err) {
-                            res.json([{"Etape 3": err}]);
-                            console.log("Etape 3" + err);
+                            res.json([{"Error": err}]);
+                            console.log(err);
 
                             return;
                         }
@@ -147,8 +141,8 @@ exports.request = function (req, res) {
 
                     db.command({'count': data.collection, 'query': request}, function (err, count) {
                         if (err) {
-                            res.json([{"Etape 4": err}]);
-                            console.log("Etape 4" + err);
+                            res.json([{"Error": err}]);
+                            console.log(err);
                             return;
                         }
 
@@ -161,8 +155,8 @@ exports.request = function (req, res) {
                     db.collection(data.collection).aggregate(request, function (err, docs) {
 
                         if (err) {
-                            res.json([{"Etape 3": err}]);
-                            console.log("Etape 3" + err);
+                            res.json([{"Error": err}]);
+                            console.log(err);
 
                             return;
                         }
